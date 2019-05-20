@@ -192,10 +192,10 @@ projects:
     #path: components/ui/fonts
     #description: 'Convenience accessor for fonts used by Mozilla.'
     #publish: true
-  #ui-icons:
-    #path: components/ui/icons
-    #description: 'A collection of often used browser icons.'
-    #publish: true
+  ui-icons:
+    path: components/ui/icons
+    description: 'A collection of often used browser icons.'
+    publish: true
   #ui-progress:
     #path: components/ui/progress
     #description: 'An animated progress bar following the Photon Design System.'
@@ -232,26 +232,26 @@ projects:
     #path: components/service/telemetry
     #description: 'A generic library for generating and sending telemetry pings from Android applications to the Mozilla telemetry service.'
     #publish: true
-  support-base:
-    path: components/support/base
-    description: 'Base component containing building blocks for components.'
-    publish: true
-  support-ktx:
-    path: components/support/ktx
-    description: 'A set of Kotlin extensions.'
-    publish: true
-  support-test:
-    path: components/support/test
-    description: 'A collection of helpers for testing components (local unit tests).'
-    publish: true
+  #support-base:
+    #path: components/support/base
+    #description: 'Base component containing building blocks for components.'
+    #publish: true
+  #support-ktx:
+    #path: components/support/ktx
+    #description: 'A set of Kotlin extensions.'
+    #publish: true
+  #support-test:
+    #path: components/support/test
+    #description: 'A collection of helpers for testing components (local unit tests).'
+    #publish: true
   #support-android-test:
     #path: components/support/android-test
     #description: 'A collection of helpers for testing components from instrumented (on device) tests.'
     #publish: true
-  support-utils:
-    path: components/support/utils
-    description: 'A collection of generic helper classes.'
-    publish: true
+  #support-utils:
+    #path: components/support/utils
+    #description: 'A collection of generic helper classes.'
+    #publish: true
   #support-rustlog:
     #path: components/support/rustlog
     #description: 'A bridge allowing log messages from Rust code to be sent to the log system in support-base'
