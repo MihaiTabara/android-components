@@ -236,22 +236,22 @@ projects:
     path: components/support/base
     description: 'Base component containing building blocks for components.'
     publish: true
-  #support-ktx:
-    #path: components/support/ktx
-    #description: 'A set of Kotlin extensions.'
-    #publish: true
-  #support-test:
-    #path: components/support/test
-    #description: 'A collection of helpers for testing components (local unit tests).'
-    #publish: true
+  support-ktx:
+    path: components/support/ktx
+    description: 'A set of Kotlin extensions.'
+    publish: true
+  support-test:
+    path: components/support/test
+    description: 'A collection of helpers for testing components (local unit tests).'
+    publish: true
   #support-android-test:
     #path: components/support/android-test
     #description: 'A collection of helpers for testing components from instrumented (on device) tests.'
     #publish: true
-  #support-utils:
-    #path: components/support/utils
-    #description: 'A collection of generic helper classes.'
-    #publish: true
+  support-utils:
+    path: components/support/utils
+    description: 'A collection of generic helper classes.'
+    publish: true
   #support-rustlog:
     #path: components/support/rustlog
     #description: 'A bridge allowing log messages from Rust code to be sent to the log system in support-base'
