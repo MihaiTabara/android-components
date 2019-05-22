@@ -15,10 +15,8 @@ object KotlinCompiler {
         "browser-domains",
         "browser-engine-gecko",
         "browser-engine-servo",
-        "browser-menu",
         "browser-search",
         "browser-storage-sync",
-        "browser-toolbar",
         "feature-accounts",
         "feature-awesomebar",
         "feature-contextmenu",
@@ -41,7 +39,6 @@ object KotlinCompiler {
         "support-test",
         "support-utils",
         "tooling-lint",
-        "ui-autocomplete",
-        "ui-progress"
+        "ui-tabcounter"
     )
 }
