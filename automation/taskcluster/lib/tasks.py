@@ -118,7 +118,8 @@ class TaskBuilder(object):
             ],
             name='Android Components - Sign Module :{}'.format(component_name),
             description="Sign release module {}".format(component_name),
-            payload=payload,
+            payload=payload
+        )
 
     def craft_ui_tests_task(self):
         artifacts = {
