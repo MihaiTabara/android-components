@@ -67,10 +67,10 @@ class TaskBuilder(object):
             artifacts=taskcluster_artifacts
         )
 
-    def craft_wait_on_builds_task(self, dependencies):
+    def craft_wait_on_all_signing_task(self, dependencies):
         return self._craft_build_ish_task(
-            name='Android Components - Wait on all builds to be completed',
-            description='Dummy tasks that ensures all builds are correctly done before publishing them',
+            name='Android Components - Wait on all signing tasks to be completed',
+            description='Dummy tasks that ensures all build and signing tasks are correctly done before publishing them',
             dependencies=dependencies,
             command="exit 0"
         )
@@ -121,7 +121,7 @@ class TaskBuilder(object):
         )
 
     def craft_beetmover_task(
-        self, build_task_id, sign_task_id, build_artifacts, sign_artifacts, component_name, is_snapshot,
+        self, build_task_id, sign_task_id, wait_on_all_sign_tasks_id, build_artifacts, sign_artifacts, component_name, is_snapshot,
             is_staging
     ):
         if is_snapshot:
@@ -158,7 +158,7 @@ class TaskBuilder(object):
             }, {
                 'paths': [artifact['taskcluster_path'] for artifact in sign_artifacts],
                 'taskId': sign_task_id,
-                'taskType': 'sign',
+                'taskType': 'signing',
             }],
             "releaseProperties": {
                 "appName": "snapshot_components" if is_snapshot else "components",
@@ -168,7 +168,7 @@ class TaskBuilder(object):
         return self._craft_default_task_definition(
             self.beetmover_worker_type,
             'scriptworker-prov-v1',
-            dependencies=[build_task_id, sign_task_id],
+            dependencies=[build_task_id, sign_task_id, wait_on_all_sign_tasks_id],
             routes=[],
             scopes=[
                 "project:mobile:android-components:releng:beetmover:bucket:{}".format(bucket_name),
