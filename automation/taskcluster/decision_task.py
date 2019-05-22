@@ -69,7 +69,7 @@ def create_module_tasks(module):
             run_coverage=True,
         ), scheduled_lint
 
-    # Takes list of variants and produces taskcluter task definitions.
+    # Takes list of variants and produces taskcluster task definitions.
     # Schedules a specified lint task at most once.
     def variants_to_definitions(variants, run_tests=True, lint_task=None):
         scheduled_lint = False
@@ -173,7 +173,7 @@ def create_module_tasks(module):
     return task_definitions
 
 
-def pr_or_push(artifacts_info):
+def pr(artifacts_info):
     if SKIP_TASKS_TRIGGER in PR_TITLE:
         print("Pull request title contains", SKIP_TASKS_TRIGGER)
         print("Exit")
@@ -193,6 +193,13 @@ def pr_or_push(artifacts_info):
         other_tasks[taskcluster.slugId()] = craft_function()
 
     return (build_tasks, other_tasks)
+
+
+def push(artifacts_info):
+    all_tasks = pr(artifacts_info)
+    other_tasks = all_tasks[1]
+    other_tasks[taskcluster.slugId()] = BUILDER.craft_ui_tests_task()
+    return all_tasks
 
 
 def _get_gradle_module_name(artifact_info):
@@ -284,7 +291,8 @@ if __name__ == "__main__":
 
     subparsers = parser.add_subparsers(dest='command')
 
-    subparsers.add_parser('pr-or-push')
+    subparsers.add_parser('pr')
+    subparsers.add_parser('push')
     release_parser = subparsers.add_parser('release')
 
     release_parser.add_argument(
@@ -309,8 +317,10 @@ if __name__ == "__main__":
         print("Could not get module names from gradle")
         sys.exit(2)
 
-    if command == 'pr-or-push':
-        ordered_groups_of_tasks = pr_or_push(components)
+    if command == 'pr':
+        ordered_groups_of_tasks = pr(components)
+    elif command == 'push':
+        ordered_groups_of_tasks = push(components)
     elif command == 'release':
         ordered_groups_of_tasks = release(
             components, result.is_snapshot, result.is_staging

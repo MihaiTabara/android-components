@@ -4,13 +4,30 @@ title: Changelog
 permalink: /changelog/
 ---
 
-# 0.53.0-SNAPSHOT  (In Development)
+# 0.54.0-SNAPSHOT  (In Development)
 
 * [Commits](https://github.com/mozilla-mobile/android-components/compare/v0.52.0...master)
-* [Milestone](https://github.com/mozilla-mobile/android-components/milestone/56?closed=1)
+* [Milestone](https://github.com/mozilla-mobile/android-components/milestone/57?closed=1)
 * [Dependencies](https://github.com/mozilla-mobile/android-components/blob/master/buildSrc/src/main/java/Dependencies.kt)
 * [Gecko](https://github.com/mozilla-mobile/android-components/blob/master/buildSrc/src/main/java/Gecko.kt)
 * [Configuration](https://github.com/mozilla-mobile/android-components/blob/master/buildSrc/src/main/java/Config.kt)
+
+* **feature-findinpage**
+  * Find in Page Bar now displays 0/0 for no matches found with new attr findInPageNoMatchesTextColor
+
+* **feature-customtabs**
+  * Fixed a bug where menu actions would not work for all Custom Tab sessions.
+
+* **support-test**
+  * Added `testContext` property for retrieving application context from tests.
+
+# 0.53.0
+
+* [Commits](https://github.com/mozilla-mobile/android-components/compare/v0.52.0...v0.53.0)
+* [Milestone](https://github.com/mozilla-mobile/android-components/milestone/56?closed=1)
+* [Dependencies](https://github.com/mozilla-mobile/android-components/blob/v0.53.0/buildSrc/src/main/java/Dependencies.kt)
+* [Gecko](https://github.com/mozilla-mobile/android-components/blob/v0.53.0/buildSrc/src/main/java/Gecko.kt)
+* [Configuration](https://github.com/mozilla-mobile/android-components/blob/v0.53.0/buildSrc/src/main/java/Config.kt)
 
 * **concept-engine**, **browser-engine-gecko-nightly** and **browser-engine-gecko-beta**:
   * Added new policies for Safe Browsing: `TrackingProtectionPolicy.SAFE_BROWSING_MALWARE`,`TrackingProtectionPolicy.SAFE_BROWSING_UNWANTED`,`TrackingProtectionPolicy.SAFE_BROWSING_PHISHING`, `TrackingProtectionPolicy.SAFE_BROWSING_HARMFUL` and `TrackingProtectionPolicy.SAFE_BROWSING_ALL`.
@@ -47,7 +64,7 @@ permalink: /changelog/
 
 * ℹ️ **Upgraded Gradle to 5.3.1**
   * ⚠️ This requires using the 1.3.30 Kotlin gradle plugin or higher.
-  
+
 * **feature-tab-collections**
   * 🆕 New component: Feature implementation for saving, restoring and organizing collections of tabs.
 
@@ -170,10 +187,10 @@ permalink: /changelog/
   accountManager.register(accountObserver, owner = this, autoPause = true)
   accountManager.registerForDeviceEvents(deviceEventsObserver, owner = this, autoPause = true)
   ```
-  
+
 * **feature-prompts**
   * ⚠️ **This is a breaking API change**:
-  * `PromptFeature` constructor adds an optional `sessionId`. This should use the custom tab session id if available. 
+  * `PromptFeature` constructor adds an optional `sessionId`. This should use the custom tab session id if available.
 
 
 * **browser-session**

@@ -170,6 +170,28 @@ class GeckoEngine(
         override var suspendMediaWhenInactive: Boolean
             get() = defaultSettings?.suspendMediaWhenInactive ?: false
             set(value) { defaultSettings?.suspendMediaWhenInactive = value }
+
+        override var fontInflationEnabled: Boolean
+            get() = runtime.settings.fontInflationEnabled
+            set(value) {
+                // Setting, even to the default value, causes an Exception if
+                // automaticFontSizeAdjustment is set to true (its default).
+                // So, let's only set if the value has changed.
+                if (value != runtime.settings.fontInflationEnabled) {
+                    runtime.settings.fontInflationEnabled = value
+                }
+            }
+
+        override var fontSizeFactor: Float
+            get() = runtime.settings.fontSizeFactor
+            set(value) {
+                // Setting, even to the default value, causes an Exception if
+                // automaticFontSizeAdjustment is set to true (its default).
+                // So, let's only set if the value has changed.
+                if (value != runtime.settings.fontSizeFactor) {
+                    runtime.settings.fontSizeFactor = value
+                }
+            }
     }.apply {
         defaultSettings?.let {
             this.javascriptEnabled = it.javascriptEnabled
@@ -183,6 +205,8 @@ class GeckoEngine(
             this.preferredColorScheme = it.preferredColorScheme
             this.allowAutoplayMedia = it.allowAutoplayMedia
             this.suspendMediaWhenInactive = it.suspendMediaWhenInactive
+            this.fontInflationEnabled = it.fontInflationEnabled
+            this.fontSizeFactor = it.fontSizeFactor
         }
     }
 }
