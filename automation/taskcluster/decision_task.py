@@ -217,10 +217,10 @@ def release(components, is_snapshot, is_staging):
 
     build_tasks = {}
     sign_tasks = {}
-    wait_on_builds_tasks = {}
+    wait_on_sign_tasks = {}
     beetmover_tasks = {}
     other_tasks = {}
-    wait_on_builds_task_id = taskcluster.slugId()
+    wait_on_all_sign_tasks_id = taskcluster.slugId()
 
     for component in components:
         def _to_release_artifact(extension):
@@ -255,7 +255,7 @@ def release(components, is_snapshot, is_staging):
 
         sign_task_id = taskcluster.slugId()
         sign_tasks[sign_task_id] = BUILDER.craft_sign_task(
-            build_task_id, wait_on_builds_task_id, [_to_release_artifact(extension)
+            build_task_id, wait_on_all_sign_tasks_id, [_to_release_artifact(extension)
                                                     for extension in ('.aar', '.pom', '-sources.jar')],
             component['name'], is_staging,
         )
@@ -266,17 +266,17 @@ def release(components, is_snapshot, is_staging):
         beetmover_sign_artifacts = [_to_release_artifact(extension + '.asc')
                                     for extension in ('.aar', '.pom', '-sources.jar')]
         beetmover_tasks[taskcluster.slugId()] = BUILDER.craft_beetmover_task(
-            build_task_id, sign_task_id, beetmover_build_artifacts, beetmover_sign_artifacts,
+            build_task_id, sign_task_id, wait_on_all_sign_tasks_id, beetmover_build_artifacts, beetmover_sign_artifacts,
             component['name'], is_snapshot, is_staging
         )
 
-    wait_on_builds_tasks[wait_on_builds_task_id] = BUILDER.craft_wait_on_builds_task(build_tasks.keys())
+    wait_on_sign_tasks[wait_on_all_sign_tasks_id] = BUILDER.craft_wait_on_builds_task(sign_tasks.keys())
 
     if is_snapshot:     # XXX These jobs perma-fail on release
         for craft_function in (BUILDER.craft_detekt_task, BUILDER.craft_ktlint_task, BUILDER.craft_compare_locales_task):
             other_tasks[taskcluster.slugId()] = craft_function()
 
-    return (build_tasks, wait_on_builds_tasks, sign_tasks, beetmover_tasks, other_tasks)
+    return (build_tasks, wait_on_sign_tasks, sign_tasks, beetmover_tasks, other_tasks)
 
 
 if __name__ == "__main__":
